@@ -1,0 +1,94 @@
+{
+    "PDNSOFT": {
+        "Majid-pc": {
+            "Bytes": "3.26 KB",
+            "Client": "Majid-pc",
+            "End": "2022-08-01 16:03:52",
+            "Jobe ID": "4541",
+            "Jobe name": "majid-pc-job",
+            "Level": "Differential",
+            "Start": "2022-08-01 16:02:07",
+            "Status": "Success"
+        },
+        "bareos-fd": {
+            "Bytes": "359.2 KB",
+            "Client": "bareos-fd",
+            "End": "2021-01-31 09:30:59",
+            "Jobe ID": "1027",
+            "Jobe name": "RestoreFiles",
+            "Level": "Full",
+            "Start": "2021-01-31 09:30:57",
+            "Status": "Success"
+        },
+        "hadi-pc": {
+            "Bytes": "0.00 B",
+            "Client": "hadi-pc",
+            "End": "None",
+            "Jobe ID": "4545",
+            "Jobe name": "hadi-pc-job",
+            "Level": "Differential",
+            "Start": "2022-08-02 11:00:02",
+            "Status": "Running"
+        },
+        "hajim-pc": {
+            "Bytes": "0.00 B",
+            "Client": "hajim-pc",
+            "End": "2022-07-29 20:03:11",
+            "Jobe ID": "4520",
+            "Jobe name": "hajim-pc-job",
+            "Level": "Full",
+            "Start": "2022-07-29 20:00:00",
+            "Status": "Failure"
+        },
+        "mail-server": {
+            "Bytes": "872.5 MB",
+            "Client": "mail-server",
+            "End": "2022-08-01 16:02:05",
+            "Jobe ID": "4538",
+            "Jobe name": "mail-server-job",
+            "Level": "Differential",
+            "Start": "2022-08-01 16:00:03",
+            "Status": "Success"
+        },
+        "pf-server": {
+            "Bytes": "357.26 KB",
+            "Client": "pf-server",
+            "End": "2022-08-01 16:03:55",
+            "Jobe ID": "4542",
+            "Jobe name": "pfsense-job",
+            "Level": "Differential",
+            "Start": "2022-08-01 16:03:54",
+            "Status": "Success"
+        },
+        "proxmox-fd": {
+            "Bytes": "106.57 GB",
+            "Client": "proxmox-fd",
+            "End": "2022-07-29 03:08:59",
+            "Jobe ID": "4514",
+            "Jobe name": "proxmox-job",
+            "Level": "Full",
+            "Start": "2022-07-29 00:01:02",
+            "Status": "Warning"
+        },
+        "redmine-fd": {
+            "Bytes": "26.26 MB",
+            "Client": "redmine-fd",
+            "End": "2022-08-01 16:00:07",
+            "Jobe ID": "4539",
+            "Jobe name": "redmine-db-job",
+            "Level": "Differential",
+            "Start": "2022-08-01 16:00:02",
+            "Status": "Success"
+        },
+        "support-pc": {
+            "Bytes": "0.00 B",
+            "Client": "support-pc",
+            "End": "2022-07-29 20:06:22",
+            "Jobe ID": "4521",
+            "Jobe name": "motevali-pc-job",
+            "Level": "Full",
+            "Start": "2022-07-29 20:03:12",
+            "Status": "Failure"
+        }
+    }
+}
