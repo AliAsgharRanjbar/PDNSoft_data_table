@@ -20,5 +20,6 @@ from data_table import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.table, name="table"),
+    path("about/", include("data_table.urls")),
 
 ]

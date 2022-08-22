@@ -16,7 +16,7 @@ End = []
 Bytes = []
 
 
-with open("C:/Users/Ali/Desktop/pooyesh/data_table/statics/sample.json", 'r') as f:
+with open("C:/Users/Ali/Desktop/pooyesh/pdn/statics/sample.json", 'r') as f:
     data = json.loads(f.read())
 
 for jn in data["PDNSOFT"]:
@@ -88,4 +88,21 @@ def table(request):
 
     styled = df.style.set_table_styles(styles)
     result = styled.render()
-    return HttpResponse(result)
+    #result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+        f.write('''{% extends "base.html" %}
+        {% load static %}
+        {% block page_content %}
+                                ''')
+        f.close()
+
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
+        f.write(f"{result}")
+        f.write("{% endblock %}")
+        f.close()
+
+    return render(request, "RES.html", {})
+
+
+def aboutme(request):
+    return render(request, "test.html", {})
