@@ -52,11 +52,12 @@ data = {
 }
 df = pd.DataFrame(data)
 # df.to_html('mld.html')
+
 styles = [
     dict(selector="tr:hover",
          props=[("background", "#f4f4f4")]),
 
-    dict(selector="th", props=[("color", "#fff"),
+    dict(selector="th", props=[("color", "white"),
                                ("border", "1px solid #eee"),
                                ("padding", "12px 35px"),
                                ("border-collapse", "collapse"),
@@ -65,11 +66,12 @@ styles = [
                                ("font-size", "18px"),
                                ('font-family', 'Courier New'),
                                ]),
-    dict(selector="td", props=[("color", "#999"),
+    dict(selector="td", props=[("color", "#000000"),
                                ("border", "1px solid #eee"),
                                ("padding", "12px 35px"),
                                ("border-collapse", "collapse"),
                                ("font-size", "20px"),
+                               ("text-align", "center"),
                                ]),
     dict(selector="table", props=[
         ("font-family", 'Arial'),
@@ -77,29 +79,79 @@ styles = [
         ("border-collapse", "collapse"),
         ("border", "1px solid #eee"),
         ("border-bottom", "2px solid #00cccc"),
+        #("width", '100%'),
+
     ]),
-    dict(selector="caption", props=[("caption-side", "bottom")])
+    dict(selector="caption", props=[("caption-side", "top"),
+                                    ("text-align", "center"),
+                                    ("color", "#000000"),
+                                    ("border", "1px solid #eee"),
+                                    ("padding", "12px 35px"),
+                                    ("border-collapse", "collapse"),
+                                    ("font-size", "20px"),
+                                    ('font-family', 'Courier New'),
+                                    ("font-weight", "bold"),
+                                    ])
+
 ]
+
+
+def background_color_changer(cell_value):
+
+    highlight_success = 'background-color: #5ab65f'
+    highlight_failure = 'background-color: #d6514c;'
+    highlight_running = 'background-color: #5dbfdf;'
+    highlight_warning = 'background-color: #f7ab4f;'
+    highlight_waiting = 'background-color: #75757d;'
+
+    default = ''
+
+    if not cell_value.isnumeric():
+        try:
+            if cell_value == "Success":
+                return highlight_success
+            elif cell_value == "Failure":
+                return highlight_failure
+            elif cell_value == "Running":
+                return highlight_running
+            elif cell_value == "Warning":
+                return highlight_warning
+            elif cell_value == "Waiting":
+                return highlight_waiting
+        except TypeError:
+            return default
+
+
+
+
+
+
+
+
+
+
+
+
 
 blank = pd.DataFrame()
 
 
 def table(request):
 
-    styled = df.style.set_table_styles(styles)
-    result = styled.render()
-    #result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
-    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
-        f.write('''{% extends "base.html" %}
-        {% load static %}
-        {% block page_content %}
-                                ''')
+    styled = df.sort_values("Start", ascending=False).style.hide(axis="index").\
+        set_table_styles(styles).applymap(background_color_changer).\
+        set_caption("Most recent job status").to_html("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html")
+
+    # result = styled.render()
+    # result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
+    '''with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+        f.write('{% extends "base.html" %\}{% load static %}{% block page_content %}')
         f.close()
 
     with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
         f.write(f"{result}")
         f.write("{% endblock %}")
-        f.close()
+        f.close()'''
 
     return render(request, "RES.html", {})
 

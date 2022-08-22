@@ -580,3 +580,6 @@ status_df_waiting.style.hide(axis="index").set_table_styles(styles_waiting).to_h
 
 # status_df.style.hide(axis="index").set_table_styles([{'selector': 'th', 'props':\
 # [('font-size', '5pt')]}]).set_properties(**{'font-size': '10pt'}).to_html("NOINDEX.html")
+
+
+
