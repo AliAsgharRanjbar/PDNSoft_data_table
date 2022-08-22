@@ -16,10 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from data_table import views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.table, name="table"),
+    path('R0b7wbbFo1Ydn54tokKQlNo7G7nzc0GThl51eZhxVu9WAIBkWc/', views.table, name="table"),
+    path('', auth_views.LoginView.as_view(), name='login'),
     path("about/", include("data_table.urls")),
+    #path('login/', auth_views.LoginView.as_view(), name='login'),
+    #path('login/', include('data_table.urls')),
 
 ]
+
+handler404 = "pdn.views.page_not_found_view"

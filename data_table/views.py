@@ -16,6 +16,23 @@ End = []
 Bytes = []
 
 
+
+
+s = 0
+fa = 0
+r = 0
+war = 0
+wai = 0
+
+status_list = []
+
+
+
+
+
+
+
+
 with open("C:/Users/Ali/Desktop/pooyesh/pdn/statics/sample.json", 'r') as f:
     data = json.loads(f.read())
 
@@ -24,6 +41,7 @@ for jn in data["PDNSOFT"]:
     Job_name.append(data["PDNSOFT"][jn]["Jobe name"])
     # print(data["PDNSOFT"][jn]["Status"])
     Status.append(data["PDNSOFT"][jn]["Status"])
+    status_list.append(data["PDNSOFT"][jn]["Status"])
     # print(data["PDNSOFT"][jn]["Jobe ID"])
     Job_ID.append(data["PDNSOFT"][jn]["Jobe ID"])  # there is a typo in json file
     # print(data["PDNSOFT"][jn]["Client"])
@@ -36,9 +54,26 @@ for jn in data["PDNSOFT"]:
     End.append(data["PDNSOFT"][jn]["End"])
     # print(data["PDNSOFT"][jn]["Bytes"])
     Bytes.append(data["PDNSOFT"][jn]["Bytes"])
-# 'tableview/static/csv/20_Startups.csv' is the django
-# directory where csv file exist.
-# Manipulate DataFrame using to_html() function
+
+
+
+for status in status_list:
+    if status == "Success":
+        s += 1
+    elif status == "Failure":
+        fa += 1
+    elif status == "Running":
+        r += 1
+    elif status == "Warning":
+        war += 1
+    else:
+        wai += 1
+
+
+
+
+
+
 
 data = {
     'Job name': Job_name,
@@ -124,6 +159,237 @@ def background_color_changer(cell_value):
 
 
 
+styles_success = [
+    dict(selector="tr:hover",
+         props=[("background", "#f4f4f4")]),
+
+    dict(selector="th", props=[("color", "white"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("background", "#5ab65f"),
+                               # ("text-transform", "uppercase"),
+                               ("font-size", "18px"),
+                               ('font-family', 'Courier New'),
+                               ]),
+    dict(selector="td", props=[("color", "#000000"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("font-size", "20px"),
+                               ("text-align", "center"),
+                               ]),
+    dict(selector="table", props=[
+        ("font-family", 'Arial'),
+        ("margin", "25px auto"),
+        ("border-collapse", "collapse"),
+        ("border", "1px solid #eee"),
+        ("border-bottom", "2px solid #00cccc"),
+    ]),
+    dict(selector="caption", props=[("caption-side", "bottom")])
+]
+
+
+
+
+
+
+styles_failure = [
+    dict(selector="tr:hover",
+         props=[("background", "#f4f4f4")]),
+
+    dict(selector="th", props=[("color", "white"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("background", "#d6514c"),
+                               # ("text-transform", "uppercase"),
+                               ("font-size", "18px"),
+                               ('font-family', 'Courier New'),
+                               ]),
+    dict(selector="td", props=[("color", "#000000"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("font-size", "20px"),
+                               ("text-align", "center"),
+                               ]),
+    dict(selector="table", props=[
+        ("font-family", 'Arial'),
+        ("margin", "25px auto"),
+        ("border-collapse", "collapse"),
+        ("border", "1px solid #eee"),
+        ("border-bottom", "2px solid #00cccc"),
+    ]),
+    dict(selector="caption", props=[("caption-side", "bottom")])
+]
+
+
+
+
+
+
+
+
+
+styles_running = [
+    dict(selector="tr:hover",
+         props=[("background", "#f4f4f4")]),
+
+    dict(selector="th", props=[("color", "white"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("background", "#5dbfdf"),
+                               # ("text-transform", "uppercase"),
+                               ("font-size", "18px"),
+                               ('font-family', 'Courier New'),
+                               ]),
+    dict(selector="td", props=[("color", "#000000"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("font-size", "20px"),
+                               ("text-align", "center"),
+                               ]),
+    dict(selector="table", props=[
+        ("font-family", 'Arial'),
+        ("margin", "25px auto"),
+        ("border-collapse", "collapse"),
+        ("border", "1px solid #eee"),
+        ("border-bottom", "2px solid #00cccc"),
+    ]),
+    dict(selector="caption", props=[("caption-side", "bottom")])
+]
+
+
+
+
+
+
+
+
+
+styles_warning = [
+    dict(selector="tr:hover",
+         props=[("background", "#f4f4f4")]),
+
+    dict(selector="th", props=[("color", "white"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("background", "#f7ab4f"),
+                               # ("text-transform", "uppercase"),
+                               ("font-size", "18px"),
+                               ('font-family', 'Courier New'),
+                               ]),
+    dict(selector="td", props=[("color", "#000000"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("font-size", "20px"),
+                               ("text-align", "center"),
+                               ]),
+    dict(selector="table", props=[
+        ("font-family", 'Arial'),
+        ("margin", "25px auto"),
+        ("border-collapse", "collapse"),
+        ("border", "1px solid #eee"),
+        ("border-bottom", "2px solid #00cccc"),
+    ]),
+    dict(selector="caption", props=[("caption-side", "bottom")])
+]
+
+
+
+
+
+
+
+styles_waiting = [
+    dict(selector="tr:hover",
+         props=[("background", "#f4f4f4")]),
+
+    dict(selector="th", props=[("color", "white"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("background", "#75757d"),
+                               # ("text-transform", "uppercase"),
+                               ("font-size", "18px"),
+                               ('font-family', 'Courier New'),
+                               ]),
+    dict(selector="td", props=[("color", "#000000"),
+                               ("border", "1px solid #eee"),
+                               ("padding", "12px 35px"),
+                               ("border-collapse", "collapse"),
+                               ("font-size", "20px"),
+                               ("text-align", "center"),
+                               ]),
+    dict(selector="table", props=[
+        ("font-family", 'Arial'),
+        ("margin", "25px auto"),
+        ("border-collapse", "collapse"),
+        ("border", "1px solid #eee"),
+        ("border-bottom", "2px solid #00cccc"),
+    ]),
+    dict(selector="caption", props=[("caption-side", "bottom")])
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+status_data_success = dict(Success=s)
+status_df_success = pd.DataFrame(status_data_success, index=[0])
+styled_suc = status_df_success.style.hide(axis="index").set_table_styles(styles_success)
+
+result_success = styled_suc.render()
+
+
+
+
+
+status_data_failure = dict(Failure=fa)
+status_df_failure = pd.DataFrame(status_data_failure, index=[0])
+styled_fail = status_df_failure.style.hide(axis="index").set_table_styles(styles_failure)
+result_fail = styled_fail.render()
+
+
+
+status_data_running = dict(Running=r)
+status_df_running = pd.DataFrame(status_data_running, index=[0])
+styled_run = status_df_running.style.hide(axis="index").set_table_styles(styles_running)
+result_run = styled_run.render()
+
+
+
+status_data_warning = dict(Warning=war)
+status_df_warning = pd.DataFrame(status_data_warning, index=[0])
+styled_warn = status_df_warning.style.hide(axis="index").set_table_styles(styles_warning)
+result_warn = styled_warn.render()
+
+
+
+status_data_waiting = dict(Waiting=wai)
+status_df_waiting = pd.DataFrame(status_data_waiting, index=[0])
+styled_wait = status_df_waiting.style.hide(axis="index").set_table_styles(styles_waiting)
+result_wait = styled_wait.render()
+
 
 
 
@@ -138,23 +404,84 @@ blank = pd.DataFrame()
 
 def table(request):
 
-    styled = df.sort_values("Start", ascending=False).style.hide(axis="index").\
+    styled = df.sort_values("Start", ascending=False).style.hide_index().\
         set_table_styles(styles).applymap(background_color_changer).\
-        set_caption("Most recent job status").to_html("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html")
+        set_caption("Most recent job status")
 
-    # result = styled.render()
+    styled = df.sort_values("Start", ascending=False).style.hide_index().\
+        set_table_styles(styles).applymap(background_color_changer).\
+        set_caption("Most recent job status")
+
+    result = styled.render()
     # result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
-    '''with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
-        f.write('{% extends "base.html" %\}{% load static %}{% block page_content %}')
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+        f.write("""<head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                    </head>
+                    <style>
+                    table{
+                    float:left;
+                    margin-left: 56px;
+                    }
+                    </style>""")
+
         f.close()
 
     with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
-        f.write(f"{result}")
-        f.write("{% endblock %}")
-        f.close()'''
+        # f.write("{% endblock %}")
 
-    return render(request, "RES.html", {})
+        f.write(f"{result_success}")
+        f.write(f"{result_fail}")
+        f.write(f"{result_run}")
+        f.write(f"{result_warn}")
+        f.write(f"{result_wait}")
+        f.write(f"{result}")
+        f.close()
+    return render(request, "RES.html")
 
 
 def aboutme(request):
     return render(request, "test.html", {})
+
+
+def R0b7wbbFo1Ydn54tokKQlNo7G7nzc0GThl51eZhxVu9WAIBkWc(request):
+    styled = df.sort_values("Start", ascending=False).style.hide_index().\
+        set_table_styles(styles).applymap(background_color_changer).\
+        set_caption("Most recent job status")
+
+    result = styled.render()
+    # result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+        f.write("""<head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                    </head>
+                    <style>
+                    table{
+                    float:left;
+                    margin-left: 56px;
+                    }
+                    </style>""")
+
+        f.close()
+
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
+        # f.write("{% endblock %}")
+
+        f.write(f"{result_success}")
+        f.write(f"{result_fail}")
+        f.write(f"{result_run}")
+        f.write(f"{result_warn}")
+        f.write(f"{result_wait}")
+        f.write(f"{result}")
+        f.close()
+    return render(request, "RES.html")
+
+
+from django.shortcuts import render
+from django.template import RequestContext
+
+
+def handler404(request, *args, **argv):
+    response = render(request,'404.html', {})
+    response.status_code = 404
+    return response

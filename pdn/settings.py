@@ -14,6 +14,8 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+LOGIN_REDIRECT_URL = 'R0b7wbbFo1Ydn54tokKQlNo7G7nzc0GThl51eZhxVu9WAIBkWc/'
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^mf3*s-kh7z#hpai^k=3nl0_4az)*#g8+s!jf+8s6=98#**i-f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "alibot.pythonanywhere.com"]
 
 
 # Application definition

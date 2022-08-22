@@ -327,6 +327,7 @@ def background_color_changer(cell_value):
 # df.sort_values("Job name")
 df.sort_values("Start", ascending=False).style.hide(axis="index").set_table_styles(styles).applymap(background_color_changer).set_caption("Most recent job status").to_html("NOINDEX.html")
 
+
 cell = 'alan'
 cell1 = '123'
 
@@ -544,9 +545,12 @@ styles_waiting = [
 
 
 
+
 status_data_success = dict(Success=s)
 status_df_success = pd.DataFrame(status_data_success, index=[0])
-status_df_success.style.hide(axis="index").set_table_styles(styles_success).to_html("STATUS_Success.html")
+styled_suc = status_df_success.style.hide(axis="index").set_table_styles(styles_success)
+
+result_success = styled_suc.render()
 
 
 
@@ -554,26 +558,29 @@ status_df_success.style.hide(axis="index").set_table_styles(styles_success).to_h
 
 status_data_failure = dict(Failure=fa)
 status_df_failure = pd.DataFrame(status_data_failure, index=[0])
-status_df_failure.style.hide(axis="index").set_table_styles(styles_failure).to_html("STATUS_Failure.html")
+styled_fail = status_df_failure.style.hide(axis="index").set_table_styles(styles_failure)
+result_fail = styled_fail.render()
 
 
 
 status_data_running = dict(Running=r)
 status_df_running = pd.DataFrame(status_data_running, index=[0])
-status_df_running.style.hide(axis="index").set_table_styles(styles_running).to_html("STATUS_Running.html")
+styled_run = status_df_running.style.hide(axis="index").set_table_styles(styles_running)
+result_run = styled_run.render()
 
 
 
 status_data_warning = dict(Warning=war)
 status_df_warning = pd.DataFrame(status_data_warning, index=[0])
-status_df_warning.style.hide(axis="index").set_table_styles(styles_warning).to_html("STATUS_Warning.html")
+styled_warn = status_df_warning.style.hide(axis="index").set_table_styles(styles_warning)
+result_warn = styled_warn.render()
 
 
 
 status_data_waiting = dict(Waiting=wai)
 status_df_waiting = pd.DataFrame(status_data_waiting, index=[0])
-status_df_waiting.style.hide(axis="index").set_table_styles(styles_waiting).to_html("STATUS_Waiting.html")
-
+styled_wait = status_df_waiting.style.hide(axis="index").set_table_styles(styles_waiting)
+result_wait = styled_wait.render()
 
 
 
@@ -583,3 +590,40 @@ status_df_waiting.style.hide(axis="index").set_table_styles(styles_waiting).to_h
 
 
 
+
+
+
+
+
+
+
+
+styled = df.sort_values("Start", ascending=False).style.hide_index(). \
+    set_table_styles(styles).applymap(background_color_changer). \
+    set_caption("Most recent job status")
+
+result = styled.render()
+with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+    f.write("""<head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+                </head>
+                <style>
+                table{
+                float:left;
+                margin-left: 56px;
+                }
+                </style>""")
+
+    f.close()
+
+with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
+
+    #f.write("{% endblock %}")
+
+    f.write(f"{result_success}")
+    f.write(f"{result_fail}")
+    f.write(f"{result_run}")
+    f.write(f"{result_warn}")
+    f.write(f"{result_wait}")
+    f.write(f"{result}")
+    f.close()
