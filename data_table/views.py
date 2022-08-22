@@ -86,5 +86,6 @@ blank = pd.DataFrame()
 
 def table(request):
 
-    result = df.style.set_table_styles(styles).to_html()
+    styled = df.style.set_table_styles(styles)
+    result = styled.render()
     return HttpResponse(result)
