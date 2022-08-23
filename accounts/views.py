@@ -1,7 +1,37 @@
-import json
-import pandas as pd
-import random
+from django.shortcuts import render
 
+# Create your views here.
+
+
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, auth
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import pandas as pd
+import json
+from time import sleep
 
 Job_name = []
 Status = []
@@ -11,6 +41,9 @@ Level = []
 Start = []
 End = []
 Bytes = []
+
+
+
 
 s = 0
 fa = 0
@@ -24,16 +57,11 @@ status_list = []
 
 
 
+
+
+
 with open("C:/Users/Ali/Desktop/pooyesh/pdn/statics/sample.json", 'r') as f:
     data = json.loads(f.read())
-
-# data = list(data)
-# print(data)
-# df = pd.DataFrame(data)
-# print(df)
-# multiple_lvl_data = pd.json_normalize(data, record_path= ["PDNSOFT"] , record_prefix='')
-
-# multiple_lvl_data.to_html('mld.html', index=False)
 
 for jn in data["PDNSOFT"]:
     # print(data["PDNSOFT"][jn]["Jobe name"])  # there is a typo in json file
@@ -56,7 +84,6 @@ for jn in data["PDNSOFT"]:
 
 
 
-
 for status in status_list:
     if status == "Success":
         s += 1
@@ -71,34 +98,22 @@ for status in status_list:
 
 
 
-# print(s, fa, r, war, wai)
 
 
 
 
-
-# print(df)
-
-# print(Job_name)
-
-data = {'Job name': Job_name, 'Status': Status, 'Job ID': Job_ID, 'Client': Client, 'Level': Level, 'Start': Start,
-        'End': End, 'Bytes': Bytes}
+data = {
+    'Job name': Job_name,
+    'Status': Status,
+    'Job ID': Job_ID,
+    'Client': Client,
+    'Level': Level,
+    'Start': Start,
+    'End': End,
+    'Bytes': Bytes,
+}
 df = pd.DataFrame(data)
-df.to_html('mld.html')
-
-# print(df)
-
-ran_list = ['Job name', 'Status', 'Job ID', 'Client', 'Level', 'Start', 'End', 'Bytes']
-
-choice = random.choice(ran_list)
-
-# df.sort_values(choice).to_html(f'randomly_sorted_by_{choice}.html')
-
-
-# df.set_index("Job name").style.set_table_styles(styles).to_html('FINAL.html')
-# df.style.set_table_styles(styles).to_html('FINAL.html', index_names=False, index=False)
-# df.to_html('FINAL.html', index_names=False, index=False)
-
+# df.to_html('mld.html')
 
 styles = [
     dict(selector="tr:hover",
@@ -126,8 +141,11 @@ styles = [
         ("border-collapse", "collapse"),
         ("border", "1px solid #eee"),
         ("border-bottom", "2px solid #00cccc"),
+        #("width", '100%'),
+
     ]),
     dict(selector="caption", props=[("caption-side", "top"),
+                                    ("text-align", "center"),
                                     ("color", "#000000"),
                                     ("border", "1px solid #eee"),
                                     ("padding", "12px 35px"),
@@ -138,16 +156,6 @@ styles = [
                                     ])
 
 ]
-
-# df.sort_values(choice).style.set_table_styles(styles).to_html(f'FINAL_{choice}.html')
-# df.style.hide(axis="index").set_table_styles(styles).applymap.to_html("NOINDEX.html")
-
-# df.set_index('Job name').sort_values(choice).style.set_table_styles(styles).to_html(f'FINAL_{choice}.html')
-
-
-
-
-
 
 
 def background_color_changer(cell_value):
@@ -174,49 +182,6 @@ def background_color_changer(cell_value):
                 return highlight_waiting
         except TypeError:
             return default
-
-
-
-
-
-
-'''def status_cells_text_color_changer(cell_value):
-
-    change_color = "color: white;"
-
-    default = ''
-
-    if not cell_value.isnumeric():
-        try:
-            if cell_value == "Success":
-                return change_color
-            elif cell_value == "Failure":
-                return change_color
-            elif cell_value == "Running":
-                return change_color
-            elif cell_value == "Warning":
-                return change_color
-            elif cell_value == "Waiting":
-                return change_color
-        except TypeError:
-            return default'''
-
-
-
-
-
-
-
-
-
-
-
-# df.style.set_table_styles([{'selector': 'th', 'props': [('font-size', '5pt')]}]).set_properties(**{'font-size': '10pt'})
-# df.sort_values("Job name")
-# df.sort_values("Start", ascending=False).style.hide(axis="index").set_table_styles(styles).\
-   # applymap(background_color_changer).set_caption("Most recent job status").to_html("NOINDEX.html")
-
-
 
 
 
@@ -416,8 +381,6 @@ styles_waiting = [
 
 
 
-
-
 status_data_success = dict(Success=s)
 status_df_success = pd.DataFrame(status_data_success, index=[0])
 styled_suc = status_df_success.style.hide(axis="index").set_table_styles(styles_success)
@@ -457,8 +420,6 @@ result_wait = styled_wait.render()
 
 
 
-# status_df.style.hide(axis="index").set_table_styles([{'selector': 'th', 'props':\
-# [('font-size', '5pt')]}]).set_properties(**{'font-size': '10pt'}).to_html("NOINDEX.html")
 
 
 
@@ -470,35 +431,102 @@ result_wait = styled_wait.render()
 
 
 
-styled = df.sort_values("Start", ascending=False).style.hide_index(). \
-    set_table_styles(styles).applymap(background_color_changer). \
-    set_caption("Most recent job status")
 
-result = styled.render()
-with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/main.html", "w") as f:
-    f.write("""<head>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-                </head>
-                <style>
-                table{
-                float:left;
-                margin-left: 56px;
-                        
-                
-                }
-                
-                </style>""")
 
-    f.close()
 
-with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/main.html", "a") as f:
 
-    #f.write("{% endblock %}")
 
-    f.write(f"{result_success}")
-    f.write(f"{result_fail}")
-    f.write(f"{result_run}")
-    f.write(f"{result_warn}")
-    f.write(f"{result_wait}")
-    f.write(f"{result}")
-    f.close()
+
+def register(request):
+    if request.method == 'POST':
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+
+        if password == confirm_password:
+            if User.objects.filter(username=username).exists():
+                messages.info(request, 'Username is already taken')
+                return redirect(register)
+            elif User.objects.filter(email=email).exists():
+                messages.info(request, 'Email is already taken')
+                return redirect(register)
+            else:
+                user = User.objects.create_user(username=username, password=password,
+                                                email=email, first_name=first_name, last_name=last_name)
+                user.save()
+
+                return redirect('login_user')
+
+
+        else:
+            messages.info(request, 'Both passwords are not matching')
+            return redirect(register)
+
+
+    else:
+        return render(request, 'registration.html')
+
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('home')
+        else:
+            messages.info(request, 'Invalid Username or Password')
+            return redirect('login_user')
+
+
+
+    else:
+        return render(request, 'login.html')
+
+
+def home(request):
+    styled = df.sort_values("Start", ascending=False).style.hide_index(). \
+        set_table_styles(styles).applymap(background_color_changer). \
+        set_caption("Most recent jobs status")
+
+    '''styled = df.sort_values("Start", ascending=False).style.hide_index().\
+        set_table_styles(styles).applymap(background_color_changer).\
+        set_caption("Most recent jobs status")'''
+
+    result = styled.render()
+    # result = styled.to_html("C:/Users/Ali/Desktop/pooyesh/pdn/templates/RES.html")
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "w") as f:
+        f.write("""<head>
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                    </head>
+                    <style>
+                    table{
+                    float:left;
+                    margin-left: 56px;
+                    }
+                    </style>""")
+
+        f.close()
+
+    with open("C:/Users/Ali/Desktop/pooyesh/data_table/templates/RES.html", "a") as f:
+        # f.write("{% endblock %}")
+
+        f.write(f"{result_success}")
+        f.write(f"{result_fail}")
+        f.write(f"{result_run}")
+        f.write(f"{result_warn}")
+        f.write(f"{result_wait}")
+        f.write(f"{result}")
+        f.close()
+    return render(request, "RES.html")
+
+
+def logout_user(request):
+    auth.logout(request)
+    return redirect('login_user')

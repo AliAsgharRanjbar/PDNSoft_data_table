@@ -21,11 +21,14 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('R0b7wbbFo1Ydn54tokKQlNo7G7nzc0GThl51eZhxVu9WAIBkWc/', views.table, name="table"),
-    path('', auth_views.LoginView.as_view(), name='login'),
+    # path('', auth_views.LoginView.as_view(), name='login'),
+    path('', views.home, name='home'),
+    path('home/', views.home, name="home"),
     path("about/", include("data_table.urls")),
-    #path('login/', auth_views.LoginView.as_view(), name='login'),
-    #path('login/', include('data_table.urls')),
+    # path('login/', auth_views.LoginView.as_view(), name='login'),
+    # path('login/', include('data_table.urls')),
+    path('accounts/', include('accounts.urls')),
+
 
 ]
 
